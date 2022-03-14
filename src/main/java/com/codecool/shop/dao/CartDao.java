@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public interface CartDao {
     void add(Product product);
-    void remove(Product product);
-    void removeAllProducts();
+    void removeProduct(Product product);
+    void removeAllProducts(Product product);
     void clearCart();
-    ArrayList<Product> getAll();
+    ArrayList<Product> getAllProducts();
 }
