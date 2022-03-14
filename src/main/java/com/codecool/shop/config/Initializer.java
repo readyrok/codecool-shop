@@ -44,7 +44,7 @@ public class Initializer implements ServletContextListener {
         //setting up products and printing it
         productDataStore.add(new Product("Amazon Fire", new BigDecimal("49.9"), "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         productDataStore.add(new Product("Lenovo IdeaPad Miix 700", new BigDecimal("479"), "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
-        productDataStore.add(new Product("Amazon Fire HD 8", new BigDecimal("89"), "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        productDataStore.add(new Product("Amazon Fire HD 8", new BigDecimal("89"), "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption. Defjkkjhkjs sajasjldsalk lsjdjj.", tablet, amazon));
         productDataStore.add(new Product("Iphone 13", new BigDecimal("799"), "USD", "Apple latest phone with an advance dual-camera system, All-screen OLED display 6.1 Inch and the new A15 Bionic chip.", phone, apple));
         productDataStore.add(new Product("Apple Watch Series 7", new BigDecimal("399"), "USD", "The Sport Band is made from a durable yet surprisingly soft high-performance fluoroelastomer with an innovative pin-and-tuck closure.", watch, apple));
         productDataStore.add(new Product("MacBook Air", new BigDecimal("1249"), "USD", "Apple M1 chip with 8‑core CPU, 8‑core GPU, and 16‑core Neural Engine, 512GB SSD storage, Retina display with True Tone.", laptop, apple));

@@ -36,7 +36,13 @@
 
 <div class="container">
     <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+        buttons   <div class="filter-box">
+            <a href="" class="btn active" data-filter="all">All</a>
+            <a href="" class="btn" data-filter="Tablet">Tablet</a>
+            <a href="" class="btn" data-filter="Phone">Phone</a>
+            <a href="" class="btn" data-filter="Watch">Watch</a>
+            <a href="" class="btn" data-filter="Laptop">Laptop</a>
+        </div>
     </div>
 
     <div id="products" class="row">
