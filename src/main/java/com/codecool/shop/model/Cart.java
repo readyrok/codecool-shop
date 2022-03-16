@@ -9,5 +9,8 @@ public class Cart {
         return cart;
     }
 
-    public void add(Product product){ this.cart.add(product); }
+    public void add(Product product){
+        this.cart.add(product);
+        System.out.println("Am ajuns 1");
+    }
 }

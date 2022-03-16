@@ -26,7 +26,7 @@ public class AddToCartController extends HttpServlet {
 
         CartDao cart = CartDaoMem.getInstance();
         ProductDao productData = ProductDaoMem.getInstance();
-
+        System.out.println("Am ajuns 3");
         cart.add(getProduct(product, productData.getAll()));
     }
 
