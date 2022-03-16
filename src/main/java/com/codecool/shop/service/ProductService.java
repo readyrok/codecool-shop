@@ -25,5 +25,15 @@ public class ProductService{
         return productDao.getBy(category);
     }
 
+    public List<Product> getEveryProducts(){
+        return productDao.getAll();
+    }
+    public List<ProductCategory> getEveryProductCategory(){
+        return productCategoryDao.getAll();
+    }
+
+    public List<Product> getSupplierDao(String supplier) {
+        return productDao.getBy(supplier);
+    }
 
 }
