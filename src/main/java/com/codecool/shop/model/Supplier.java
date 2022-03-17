@@ -7,7 +7,7 @@ public class Supplier extends BaseModel {
     private List<Product> products;
 
     public Supplier(String name, String description) {
-        super(name);
+        super(name, description);
         this.products = new ArrayList<>();
     }
 
@@ -25,7 +25,7 @@ public class Supplier extends BaseModel {
 
     @Override
     public String toString() {
-        return String.format("id: %1$d, " +
+        return String.format("id: %1$s, " +
                         "name: %2$s, " +
                         "description: %3$s",
                 this.id,

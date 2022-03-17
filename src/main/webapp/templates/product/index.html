@@ -27,6 +27,7 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+
 </head>
 
 <body>
@@ -34,6 +35,7 @@
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
+
 
 <div class="row d-flex justify-content-center">
     <div class="col-6 col-sm-3 text-center">
@@ -47,6 +49,17 @@
                         th:text="${category.name}"></option>
             </select>
         </form>
+  </div>
+
+<div class="container">
+    <div class="cart">
+        <a href="cart.html">
+            <ion-icon name="basket"></ion-icon>Cart<span id='cartCount' th:text="${cart.getAllProducts().size()}"> (0)</span>
+        </a>
+    </div>
+    <div class="card">
+        <strong th:text="${category.name}">Category Title</strong>
+
     </div>
     <div class="col-6 col-sm-3 text-center">
         <form action="/" method="get">
@@ -75,7 +88,7 @@
                         <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <button th:attr="data-product-id=${prod.getId()}" type="button" class="btn btn-success add-to-cart-btn">Add to cart</button>
                     </div>
                 </div>
             </div>
@@ -85,6 +98,8 @@
 </div>
 
 <div th:replace="footer.html :: copy"></div>
-
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="/static/js/index.js" defer></script>
 </body>
 </html>

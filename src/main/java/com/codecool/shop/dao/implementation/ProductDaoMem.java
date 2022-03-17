@@ -8,6 +8,7 @@ import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ProductDaoMem implements ProductDao {
@@ -29,18 +30,27 @@ public class ProductDaoMem implements ProductDao {
 
     @Override
     public void add(Product product) {
-        product.setId(data.size() + 1);
+        product.setId(UUID.randomUUID().toString());
         data.add(product);
     }
 
-    @Override
-    public Product find(int id) {
+//     @Override
 
-        return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+//     public Product find(int id) {
+
+//         return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+
+    public Product find(String id) {
+        for(Product product: data){
+            if(product.getId().equals(id)) return product;
+        }
+        return null;
+//        return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(String id) {
         data.remove(find(id));
     }
 
