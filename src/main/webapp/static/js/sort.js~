@@ -1,0 +1,6 @@
+document.querySelector("#tablet").addEventListener("click", ret);
+function ret(){
+    console.log("Ceva")
+}
+
+// console.log("FSAFDGSGDFGAREW")

@@ -36,6 +36,12 @@
     <h1>Codecool Shop</h1>
 </div>
 
+<div class="container">
+    <div class="cart">
+        <a href="cart.html">
+            <ion-icon name="basket"></ion-icon>Cart<span id='cartCount' th:text="${cart.getAllProducts().size()}"> (0)</span>
+        </a>
+    </div>
 
 <div class="row d-flex justify-content-center">
     <div class="col-6 col-sm-3 text-center">
@@ -51,16 +57,10 @@
         </form>
   </div>
 
-<div class="container">
-    <div class="cart">
-        <a href="cart.html">
-            <ion-icon name="basket"></ion-icon>Cart<span id='cartCount' th:text="${cart.getAllProducts().size()}"> (0)</span>
-        </a>
-    </div>
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+<!--    <div class="card">-->
+<!--        <strong th:text="${category.name}">Category Title</strong>-->
 
-    </div>
+<!--    </div>-->
     <div class="col-6 col-sm-3 text-center">
         <form action="/" method="get">
             <select name="supplier" id="supplier" class="form-select"

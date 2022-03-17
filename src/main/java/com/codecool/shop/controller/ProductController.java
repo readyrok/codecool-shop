@@ -47,8 +47,8 @@ public class ProductController extends HttpServlet {
                     context.setVariable("category", productService.getProductCategory(pd.getId()));
                     context.setVariable("products", productService.getProductsForCategory(pd.getId()));
                 } else {
-                    context.setVariable("category", productService.getProductCategory(1));
-                    context.setVariable("products", productService.getProductsForCategory(1));
+                    context.setVariable("category", productService.getProductCategory("1"));
+                    context.setVariable("products", productService.getProductsForCategory("1"));
                 }
             }
         } else if(supplier != null){
