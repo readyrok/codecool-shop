@@ -16,14 +16,13 @@ public class ProductService{
         this.productCategoryDao = productCategoryDao;
     }
 
-    public ProductCategory getProductCategory(int categoryId){
+    public ProductCategory getProductCategory(String categoryId){
         return productCategoryDao.find(categoryId);
     }
 
-    public List<Product> getProductsForCategory(int categoryId){
+    public List<Product> getProductsForCategory(String categoryId) {
         var category = productCategoryDao.find(categoryId);
         return productDao.getBy(category);
     }
-
 
 }

@@ -7,8 +7,8 @@ import java.util.List;
 public interface ProductCategoryDao {
 
     void add(ProductCategory category);
-    ProductCategory find(int id);
-    void remove(int id);
+    ProductCategory find(String id);
+    void remove(String id);
 
     List<ProductCategory> getAll();
 

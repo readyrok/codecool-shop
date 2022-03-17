@@ -25,6 +25,7 @@
     <!-- End of Bootstrap components -->
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+
 </head>
 <body>
 
@@ -55,10 +56,10 @@
                 </div>
 
                 <div class="card-text">
-                    <a class="btn btn-success" th:href="@{/another/{product} (product=${prod.key.name})}">+</a>
+                    <a class="btn btn-success add-to-cart-btn" th:attr="data-product-id=${prod.key.id}">+</a>
                     <h5 class="" th:text="${prod.value}">100 USD</h5>
-                    <a class="btn btn-success" th:href="@{/remove/{product} (product=${prod.key.name})}">-</a>
-                    <a class="btn btn-success" th:href="@{/remove/all/{product} (product=${prod.key.name})}"><i class="fa fa-trash-o"></i></a>
+                    <a class="btn btn-success" th:href="@{/remove/{product} (product=${prod.key.id})}">-</a>
+                    <a class="btn btn-success" th:href="@{/remove/all/{product} (product=${prod.key.id})}">x</a>
                 </div>
             </div>
         </div>
@@ -69,5 +70,6 @@
 <div th:replace="footer.html :: copy"></div>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="/static/js/cart.js" defer></script>
 </body>
 </html>

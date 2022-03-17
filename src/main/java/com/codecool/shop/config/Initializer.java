@@ -44,6 +44,6 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Amazon Fire HD 8", new BigDecimal("89"), "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
 
         //setting up a new cart
-        Cart cart = new Cart();
+        Cart cart = Cart.getInstance();
     }
 }
