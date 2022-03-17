@@ -36,12 +36,11 @@
     </div>
 </div>
 <div class="card-header">
-    <h1 th:text="${cartTotal}+USD">100 USD</h1>
+    <h1 id="cartTotal" th:text="${cartTotal}+USD">100 USD</h1>
 </div>
 
 
 <div id="products" class="row">
-
     <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod: ${cart.countProducts()}">
         <div class="card">
             <img src="http://placehold.it/300x150/000/fff" th:attr="src='/static/img/product_' + ${prod.key.id} + '.jpg'" alt="" />
@@ -52,14 +51,12 @@
             <div class="card-body">
                 <div class="card-text">
                     <p class="lead" th:text="${prod.key.price}">100 USD</p>
-
                 </div>
-
                 <div class="card-text">
-                    <a class="btn btn-success add-to-cart-btn" th:attr="data-product-id=${prod.key.id}">+</a>
-                    <h5 class="" th:text="${prod.value}">100 USD</h5>
-                    <a class="btn btn-success" th:href="@{/remove/{product} (product=${prod.key.id})}">-</a>
-                    <a class="btn btn-success" th:href="@{/remove/all/{product} (product=${prod.key.id})}">x</a>
+                    <a class="btn btn-success add-to-cart-btn" th:attr="data-product-id=${prod.key.id}, data-product-price=${prod.key.price}">+</a>
+                    <h5 class="product-amount" th:attr="data-product-id=${prod.key.id}" th:text="${prod.value}">1</h5>
+                    <a class="btn btn-success remove-product" th:attr="data-product-id=${prod.key.id}, data-product-price=${prod.key.price}">-</a>
+                    <a class="btn btn-success remove-all" th:attr="data-product-id=${prod.key.id}, data-product-price=${prod.key.price}">x</a>
                 </div>
             </div>
         </div>

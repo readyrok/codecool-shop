@@ -21,6 +21,5 @@ public class Cart {
 
     public void add(Product product){
         this.cart.add(product);
-        System.out.println("Am ajuns 1");
     }
 }
