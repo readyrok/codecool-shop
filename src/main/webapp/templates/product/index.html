@@ -42,8 +42,8 @@
                     aria-label=".form-select-sm example"
                     onchange="this.form.submit()">
                 <option value="" selected disabled hidden>Select category</option>
-                <option th:each="cat,iterStat : ${categories}" th:value="${cat.name.toLowerCase}"
-                        th:text="${cat.name}"></option>
+                <option th:each="category,iterStat : ${categories}" th:value="${category.name}"
+                        th:text="${category.name}"></option>
             </select>
         </form>
     </div>
