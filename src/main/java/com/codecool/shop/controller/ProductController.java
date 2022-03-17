@@ -41,19 +41,19 @@ public class ProductController extends HttpServlet {
             for (ProductCategory pd : productCategoryDataStore.getAll()) {
                 if (page.equals(pd.getName().toLowerCase())) {
                     System.out.println(pd.toString());
-                    context.setVariable("category", productService.getProductCategory(pd.getId()));
-                    context.setVariable("products", productService.getProductsForCategory(pd.getId()));
+                    context.setVariable("category", productCategoryDataStore.getAll());
+                    context.setVariable("products", productService.getEveryProductCategory());
                 } else {
-                    context.setVariable("category", productService.getProductCategory(1));
-                    context.setVariable("products", productService.getProductsForCategory(1));
+                    context.setVariable("category", productCategoryDataStore.getAll());
+                    context.setVariable("products", productService.getEveryProductCategory());
                 }
             }
         } else if(supplier != null){
             context.setVariable("products", productService.getSupplierDao(supplier));
             context.setVariable("currentSupplier", supplier);
         }else {
-            context.setVariable("category", productService.getProductCategory(1));
-            context.setVariable("products", productService.getProductsForCategory(1));
+            context.setVariable("category", productCategoryDataStore.getAll());
+            context.setVariable("products", productService.getEveryProducts());
         }
         context.setVariable("supplierList", supplierDao.getAll());
 
