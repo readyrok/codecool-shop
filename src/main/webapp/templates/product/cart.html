@@ -43,7 +43,7 @@
 <div id="products" class="row">
     <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod: ${cart.countProducts()}">
         <div class="card">
-            <img src="http://placehold.it/300x150/000/fff" th:attr="src='/static/img/product_' + ${prod.key.id} + '.jpg'" alt="" />
+            <img src="http://placehold.it/300x150/000/fff" th:attr="src=${prod.key.imageLink}" alt="" />
             <div class="card-header">
                 <h4 class="card-title" th:text="${prod.key.name}">Product name</h4>
                 <p class="card-text" th:text="${prod.key.description}">Product description</p>
