@@ -40,22 +40,22 @@ public class ProductController extends HttpServlet {
         if (page != null) {
             for (ProductCategory pd : productCategoryDataStore.getAll()) {
                 if (page.equals(pd.getName().toLowerCase())) {
-                    System.out.println(pd.toString());
-                    context.setVariable("category", productCategoryDataStore.getAll());
-                    context.setVariable("products", productService.getEveryProductCategory());
+                    context.setVariable("category", productService.getProductCategory(pd.getId()));
+                    context.setVariable("products", productService.getProductsForCategory(pd.getId()));
                 } else {
-                    context.setVariable("category", productCategoryDataStore.getAll());
-                    context.setVariable("products", productService.getEveryProductCategory());
+                    context.setVariable("category", productService.getProductCategory(1));
+                    context.setVariable("products", productService.getProductsForCategory(1));
                 }
             }
         } else if(supplier != null){
             context.setVariable("products", productService.getSupplierDao(supplier));
             context.setVariable("currentSupplier", supplier);
         }else {
-            context.setVariable("category", productCategoryDataStore.getAll());
+            context.setVariable("category", productDataStore.getAll());
             context.setVariable("products", productService.getEveryProducts());
         }
         context.setVariable("supplierList", supplierDao.getAll());
+        context.setVariable("categoryList",productCategoryDataStore.getAll());
 
         context.setVariable("categories", productCategoryDataStore.getAll());
         engine.process("product/index.html", context, resp.getWriter());
