@@ -14,18 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/add-cart/*"})
-public class AddToCartController extends HttpServlet {
+@WebServlet(urlPatterns = "/remove/all/*")
+public class RemoveProductsController extends HttpServlet {
     private String productId = "";
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         processUrlParams(req);
         ProductDao productData = ProductDaoMem.getInstance();
         CartDao cart = CartDaoMem.getInstance();
         Product product = productData.find(productId);
-        cart.add(product);
+        System.out.println("produsul de sters este: " + product);
+        cart.removeAllProducts(product);
     }
 
     protected void processUrlParams(HttpServletRequest req) {

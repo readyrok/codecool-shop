@@ -23,7 +23,6 @@ public class CartDaoMem implements CartDao {
     @Override
     public void add(Product product) {
         this.cart.add(product);
-        System.out.println("Am ajuns 2");
     }
 
     @Override
@@ -41,6 +40,7 @@ public class CartDaoMem implements CartDao {
         while(this.cart.contains(product)){
             this.cart.remove(product);
         }
+        System.out.println(this.cart);
     }
 
     @Override
@@ -74,9 +74,7 @@ public class CartDaoMem implements CartDao {
     public Double GetCartTotal() {
         Double cartTotal = 0.0;
         HashMap<Product, Integer> mapForMoney = this.countProducts();
-        System.out.println(mapForMoney);
         for (Map.Entry<Product, Integer> pair: mapForMoney.entrySet()){
-            System.out.println(pair);
             cartTotal += Double.parseDouble(pair.getKey().getPrice().replace("USD", "")) * pair.getValue();
         }
         return cartTotal;
