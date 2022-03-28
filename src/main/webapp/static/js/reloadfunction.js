@@ -42,9 +42,6 @@
 //
 //         contentText += '</div>   '
 //
-//         tbody.insertAdjacentHTML("afterbegin", contentText);
-//         // "beforebegin" | "afterbegin" | "beforeend" | "afterend";
-//
 //     }
 // }
 //
