@@ -1,7 +1,6 @@
 const URL_API = "http://localhost:8888"
 let cartCount = document.getElementById("cartTotal");
 let productCounters = document.getElementsByClassName("product-amount");
-// let productCols = document.getElementsByClassName("col");
 
 const addToCart = async (productId, productPrice) => {
     const response = await fetch(URL_API + "/add-cart/?product=" + productId);
@@ -43,11 +42,15 @@ const removeAllProduct = async (productId, productPrice) => {
     let cPrice = parseFloat(cartCount.innerText.substring(0, cartCount.innerText.length - 4));
     let pPrice = parseFloat(productPrice.substring(0, productPrice.length - 4));
     let newCartTotal = 0;
-
+    let cards = document.getElementsByClassName("card");
+    console.log(cards);
     for(let i = 0; i<productCounters.length; i++){
         if(productId == productCounters[i].dataset.productId){
             let count = parseInt(productCounters[i].innerText);
             newCartTotal = cPrice - pPrice * count + ' USD';
+        }
+        if(productId == cards[i].dataset.productId) {
+            cards[i].innerHTML = "";
         }
     }
 
