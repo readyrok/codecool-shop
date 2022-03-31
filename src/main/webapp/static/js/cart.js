@@ -62,6 +62,11 @@ const init = () => {
     const addToCartButtons = document.getElementsByClassName("add-to-cart-btn");
     const removeProductButtons = document.getElementsByClassName("remove-product");
     const removeAllProductButtons = document.getElementsByClassName("remove-all");
+    const checkoutButton = document.getElementById("checkout-btn");
+
+    checkoutButton.addEventListener("click", async () => {
+        const response = await fetch(URL_API + "/checkout");
+    });
 
     for(let addBtn of addToCartButtons) {
         addBtn.addEventListener("click", () => {
@@ -69,7 +74,6 @@ const init = () => {
             const productPrice = addBtn.dataset.productPrice;
 
             addToCart(productId, productPrice);
-            console.log("1")
         });
     }
 
