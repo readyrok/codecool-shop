@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="footer.html :: head"></head>
+
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="footer.html :: header"></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li th:if="${username != null}" class="nav-item">
+                    <a class="nav-link" href="/profile">Edit address
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex align-items-center">
+            <div th:if="${username == null}" class="px-1">
+                <button type="button" class="btn btn-link px-3 me-2" onClick="loginButton()">login</button>
+            </div>
+            <div th:if="${username == null}" class="px-1">
+                <button type="button" class="btn btn-primary me-3" onClick="registrationButton()">sign up for free
+                </button>
+            </div>
+            <div th:if="${username != null}" class="px-1">
+                <button type="button" class="btn btn-link px-3 me-2" onClick="logoutButton()">log out
+                </button>
+            </div>
+            <div th:if="${username != null}" th:text="${username + 's order(s)'}"></div>
+        </div>
+    </div>
+</nav>
+<div class="container px-3 py-3 ">
+    <!--        <div class="center-text">-->
+    <!--            <h4 th:if="${user != null}" th:text="${user.getName()}" class="center-text"></h4>-->
+    <!--        </div>-->
+    <div class="row" th:each="order,iterStat : ${user.getOrders()}">
+        <div class="card card-custom shadow my-5">
+            <div class="card-header text-center py-4 border-0"
+                 th:text="${iterStat.index + 1} +'# ' + ${order.getFormatedDate()}">
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="lineItem,iterStato : ${order.getShoppingCart().getLineItems()}">
+                        <td scope="row" th:text="${iterStato.index + 1}"></td>
+                        <td th:text="${lineItem.getProductName()}"></td>
+                        <td th:text="${lineItem.getQuantity()}"></td>
+                        <td th:text="${lineItem.getLinePrice()}"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>SubTotal:</td>
+                        <td th:text="${order.getShoppingCart().getSubTotal()} + 'USD'"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div >
+
+                </div>
+            </div>
+            <div class="footer border-0">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer.html :: footer"></div>
+<!--    <script src="/static/js/ordersummary.js"></script>-->
+
+<!-- MDB -->
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+></script>
+</body>
+</html>

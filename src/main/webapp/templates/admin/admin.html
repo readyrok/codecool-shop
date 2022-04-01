@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="footer.html :: head">
+
+</head>
+<body>
+<div th:replace="footer.html :: header"></div>
+<div class="bg-own">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggle button -->
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Navbar brand -->
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Home</a>
+                    </li>
+                </ul>
+                <!-- Left links -->
+            </div>
+            <!-- Right elements -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+    <div class="container-fluid  px-5 py-5" style="width:600px;">
+        <div class="card shadow" style="height:600px">
+            <div class="card-header text-center py-4">
+                <h4>Admin Log</h4>
+            </div>
+            <div class="card-body p-3 mb-5 bg-body rounded">
+                <div class="overflow-scroll" style="max-height: 450px;">
+                    <p th:each="log,iterStat : ${logs}"
+                       th:text="${log}" class="card m-3 shadow-"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer.html :: footer"></div>
+</body>
+</html>

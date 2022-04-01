@@ -1,67 +1,158 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<head th:include="footer.html :: head">
 
-    <title>Codecool Shop</title>
-
-    <!-- Bootstrap components -->
-    <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-    <!--Latest compiled and minified Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- End of Bootstrap components -->
-
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="footer.html :: header"></div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
 
-<div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li th:if="${username != null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/orders}">Orders</a>
+                </li>
+                <li th:if="${username != null}" class="nav-item">
+                    <a class="nav-link" href="/profile">Edit address
+                    </a>
+                </li>
+            </ul>
+            <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
 
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
+        <!-- Right elements -->
+        <div class="d-flex align-items-center dropdown">
+            <div th:if="${username == null}" class="px-1">
+                <button type="button" class="btn btn-link px-3 me-2" onClick="loginButton()">login</button>
+            </div>
+            <div th:if="${username == null}" class="px-1">
+                <button type="button" class="btn btn-primary me-3" onClick="registrationButton()">sign up for free
+                </button>
+            </div>
+            <div th:if="${username != null && isAdmin}" class="px-1">
+                <button type="button" class="btn btn-link px-3 me-2" onClick="adminPanel()">Admin panel
+                </button>
+            </div>
+            <div th:if="${username != null}" class="px-1">
+                <button type="button" class="btn btn-link px-3 me-2" onClick="logoutButton()">log out
+                </button>
+            </div>
+            <div th:if="${username != null}" th:text="${username}" style="position: relative;right: 10px;"></div>
+            <!-- Icon -->
+            <a
+                    class="text-reset me-3 dropdown-toggle hidden-arrow"
+                    href="#"
+                    role="button"
+                    id="navbarDropdownMenuLink"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+            >
+                <i class="fas fa-shopping-cart" data-mdb-toggle="dropdown"
+                   aria-expanded="false"></i>
+                <span class="badge rounded-pill badge-notification bg-warning" id="cart-length"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end text-center shopping-items w-auto p-3">
+                <div id="shopping-list"></div>
+                <div>
+                    <form th:action="@{/order}" th:method="GET">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <br/>
+                            <input type="submit" value="Checkout & Order summary"
+                                   class="btn btn-success btn-rounded btn-own"/>
+                        </div>
+                    </form>
                 </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+            </div>
+
+        </div>
+        <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+<div class="container shopcard">
+    <div class="row d-flex justify-content-center">
+        <div class="col-6 col-sm-3 text-center">
+            <form action="/" method="get">
+                <select name="category" id="category" class="form-select"
+                        aria-label=".form-select-sm example"
+                        onchange="this.form.submit()">
+                    <option value="" selected disabled hidden>Select category</option>
+                    <option th:each="cat,iterStat : ${categories}" th:value="${cat.name.toLowerCase}"
+                            th:text="${cat.name}"></option>
+                </select>
+            </form>
+        </div>
+        <div class="col-6 col-sm-3 text-center">
+            <form action="/" method="get">
+                <select name="supplier" id="supplier" class="form-select"
+                        aria-label=".form-select-sm example"
+                        onchange="this.form.submit()">
+                    <option value="" selected disabled hidden>Select supplier</option>
+                    <option th:each="supplier,iterStat : ${supplierList}"
+                            th:value="${supplier.name.toLowerCase}"
+                            th:text="${supplier.name}"></option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+            <div class="col" id="products" th:each="prod,iterStat : ${products}">
+                <div class="card h-100 card-custom">
+                    <div class="hover-zoom">
+                        <img class="card-img-top bg-image" src="http://placehold.it/400x250/000/fff"
+                             th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                     </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                    <div class="label-top shadow-sm" th:text="${prod.getSupplierName()}"></div>
+                    <div class="card-body">
+                        <div class="clearfix mb-3">
+                                <span class="float-start badge rounded-pill bg-primary" th:text="${prod.name}">
+                                </span>
+                            <span class="float-end price-hp" th:text="${prod.getPrice()}">
+                                </span>
+                        </div>
+                        <h5 class="card-title" th:text="${prod.description}"></h5>
+                    </div>
+                    <div class="card-footer bg-transparent text-center border-0 my-4">
+                        <a th:attr="data-id=${prod.getId()}"
+                           class="btn btn-warning buy-btn btn-own mb-2">Add to cart</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
-<div th:replace="footer.html :: copy"></div>
-
+<div th:replace="footer.html :: footer"></div>
+<script src="/static/js/main.js" defer></script>
+<!-- MDB -->
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+></script>
 </body>
 </html>

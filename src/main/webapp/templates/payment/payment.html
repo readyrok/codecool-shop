@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="footer.html :: head"></head>
+
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="footer.html :: header"></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex align-items-center">
+            <!--                <div th:if="${username == null}" class="px-1">-->
+            <!--                    <button type="button" class="btn btn-link px-3 me-2" onClick="loginButton()">login</button>-->
+            <!--                </div>-->
+            <!--                <div th:if="${username == null}" class="px-1">-->
+            <!--                    <button type="button" class="btn btn-primary me-3" onClick="registrationButton()">sign up for free-->
+            <!--                    </button>-->
+            <!--                </div>-->
+            <!--                <div th:if="${username != null}" class="px-1">-->
+            <!--                    <button type="button" class="btn btn-link px-3 me-2" onClick="logoutButton()">log out-->
+            <!--                    </button>-->
+            <!--                </div>-->
+            <div th:if="${username != null}" th:text="${username}"></div>
+            <a
+                    class="text-reset me-3 dropdown-toggle hidden-arrow"
+                    href="#"
+                    role="button"
+                    id="navbarDropdownMenuLink"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+            >
+                <i class="fas fa-shopping-cart" data-mdb-toggle="dropdown"
+                   aria-expanded="false"></i>
+                <span class="badge rounded-pill badge-notification bg-warning" id="cart-length"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end text-center shopping-items w-auto p-3">
+                <div id="shopping-list"></div>
+                <div>
+                    <form th:action="@{/order}" th:method="GET">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <br/>
+                            <input type="submit" value="Checkout & Order summary" class="btn btn-success btn-rounded btn-own"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid px-5 py-5" style="width:600px;">
+    <div class="card card-custom shadow mt-5">
+        <div class="card-header text-center py-4 border-0">
+            <h4>Payment Method</h4>
+        </div>
+        <div class="card-body p-3 mb-5 bg-body rounded">
+            <form class="row g-3 px-3" method="post" action="/payment">
+                <div class="my-3">
+                    <div class="form-check">
+                        <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked
+                               required>
+                        <label class="form-check-label" for="credit">Credit card</label>
+                    </div>
+                    <div class="form-check">
+                        <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
+                        <label class="form-check-label" for="paypal">PayPal</label>
+                    </div>
+                </div>
+                <div class="paypal" style="display:none;">
+                    <div class="row gy-3">
+                        <div class="col-12">
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                        </div>
+                        <div class="col-12">
+                            <input type="password" class="form-control" placeholder="Password"
+                                   aria-label="Password">
+                        </div>
+                    </div>
+                </div>
+                <div class="credit-card">
+                    <div class="row gy-3">
+                        <div class="col-md-6">
+                            <label for="cc-name" class="form-label">Name on card</label>
+                            <input type="text" class="form-control" name="nameOnCard" id="cc-name" placeholder=""
+                                   required>
+                            <small class="text-muted">Full name as displayed on card</small>
+                            <div class="invalid-feedback">
+                                Name on card is required
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cc-number" class="form-label">Credit card number</label>
+                            <input type="text" class="form-control" name="number" id="cc-number" placeholder=""
+                                   required>
+                            <div class="invalid-feedback">
+                                Credit card number is required
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cc-expiration" class="form-label">Expiration</label>
+                            <input type="text" class="form-control" name="expiration" id="cc-expiration"
+                                   placeholder="" required>
+                            <div class="invalid-feedback">
+                                Expiration date required
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cc-cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" name="cvv" id="cc-cvv" placeholder="" required>
+                            <div class="invalid-feedback">
+                                Security code required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-center pt-5">
+                    <button type="submit" class="btn btn-success btn-rounded btn-own mb-2">Place Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="footer.html :: footer"></div>
+<script src="/static/js/payment.js"></script>
+<!-- MDB -->
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+></script>
+</body>
+</html>
