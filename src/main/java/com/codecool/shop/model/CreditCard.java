@@ -2,11 +2,11 @@ package com.codecool.shop.model;
 
 public class CreditCard {
     private String name;
-    private int cardNumber;
+    private String cardNumber;
     private String expiration;
-    private int cvv;
+    private String cvv;
 
-    public CreditCard(String name, int cardNumber, String expiration, int cvv){
+    public CreditCard(String name, String cardNumber, String expiration, String cvv){
         this.name = name;
         this.cardNumber = cardNumber;
         this.expiration = expiration;
@@ -17,7 +17,7 @@ public class CreditCard {
         return name;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
@@ -25,7 +25,7 @@ public class CreditCard {
         return expiration;
     }
 
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
 }

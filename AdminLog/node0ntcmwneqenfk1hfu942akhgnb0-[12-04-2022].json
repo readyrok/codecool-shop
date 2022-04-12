@@ -1,0 +1,5 @@
+{"UserID":"node0ntcmwneqenfk1hfu942akhgnb0"}
+{"Action":"Product add to cart","Product Id":"1","time":"[12:55:44]"}
+{"Action":"Product add to cart","Product Id":"2","time":"[12:55:45]"}
+{"Action":"Product add to cart","Product Id":"3","time":"[12:55:45]"}
+{"Action":"Check address","time":"[12:56:02]","Billing Address":{"country":"Romania","city":"Bucuresti","zipcode":40287,"street":"Alexandru Balasanu","houseNumber":21},"Shipping Address":{"country":"Romania","city":"Bucuresti","zipcode":40287,"street":"Alexandru Balasanu","houseNumber":21}}

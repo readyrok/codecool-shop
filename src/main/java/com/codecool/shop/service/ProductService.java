@@ -1,8 +1,8 @@
 package com.codecool.shop.service;
 
 import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.UserDaoMem;
+import com.codecool.shop.dao.implementation.memory.OrderDaoMem;
+import com.codecool.shop.dao.implementation.memory.UserDaoMem;
 import com.codecool.shop.model.*;
 
 import java.util.List;

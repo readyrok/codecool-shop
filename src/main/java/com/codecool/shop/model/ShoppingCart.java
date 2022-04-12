@@ -13,7 +13,6 @@ public class ShoppingCart {
     public ShoppingCart(Product product) {
         this.currency = product.getDefaultCurrency();
         addProduct(product);
-
     }
 
     public void addProduct(Product product) {

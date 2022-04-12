@@ -4,9 +4,9 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.ShoppingCartDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.ShoppingCartDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
+import com.codecool.shop.dao.implementation.memory.ShoppingCartDaoMem;
 import com.codecool.shop.model.*;
 import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
@@ -30,9 +30,9 @@ public class PaymentController extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nameOnCard = req.getParameter("nameOnCard");
-        int cardNumber = Integer.parseInt(req.getParameter("number"));
+        String cardNumber = req.getParameter("number");
         String expiration = req.getParameter("expiration");
-        int cvv = Integer.parseInt(req.getParameter("cvv"));
+        String cvv = req.getParameter("cvv");
         CreditCard creditCard = new CreditCard(nameOnCard, cardNumber, expiration, cvv);
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
