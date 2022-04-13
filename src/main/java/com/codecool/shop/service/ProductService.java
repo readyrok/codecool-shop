@@ -1,20 +1,44 @@
 package com.codecool.shop.service;
 
 import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.memory.OrderDaoMem;
-import com.codecool.shop.dao.implementation.memory.UserDaoMem;
+import com.codecool.shop.dao.implementation.database.ProductCategoryDaoJdbc;
+import com.codecool.shop.dao.implementation.database.ProductDaoJdbc;
+import com.codecool.shop.dao.implementation.database.SupplierDaoJdbc;
+import com.codecool.shop.dao.implementation.memory.*;
 import com.codecool.shop.model.*;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class ProductService {
     private ProductDao productDao;
     private ProductCategoryDao productCategoryDao;
     private ShoppingCartDao shoppingCartDao;
+    private SupplierDao supplierDao;
     private UserDao userDao = UserDaoMem.getInstance();
     private OrderDao orderDao = OrderDaoMem.getInstance();
+    private DaoImplementation daoImplementation;
 
     public ProductService() {
+    }
+
+    public ProductService(DaoImplementation implementation, DataSource dataSource) {
+        this.daoImplementation = implementation;
+        switch(implementation) {
+            case MEMORY:
+                this.productDao = ProductDaoMem.getInstance();
+                this.productCategoryDao = ProductCategoryDaoMem.getInstance();
+                this.shoppingCartDao = ShoppingCartDaoMem.getInstance();
+                this.supplierDao = SupplierDaoMem.getInstance();
+                break;
+            case DATABASE:
+                this.productDao = new ProductDaoJdbc(dataSource);
+                this.productCategoryDao = new ProductCategoryDaoJdbc(dataSource);
+                this.supplierDao = new SupplierDaoJdbc(dataSource);
+                this.shoppingCartDao = ShoppingCartDaoMem.getInstance();
+                break;
+        }
+
     }
 
     public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, ShoppingCartDao shoppingCartDao) {
@@ -22,7 +46,6 @@ public class ProductService {
         this.productCategoryDao = productCategoryDao;
         this.shoppingCartDao = shoppingCartDao;
     }
-
 
     public ProductCategory getProductCategory(int categoryId) {
         return productCategoryDao.find(categoryId);
@@ -45,9 +68,11 @@ public class ProductService {
         return productCategoryDao.getAll();
     }
 
-    public List<Product> getSupplierDao(String supplier) {
+    public List<Product> getSupplier(String supplier) {
         return productDao.getBy(supplier);
     }
+
+    public SupplierDao getSupplierDao() { return supplierDao; }
 
     public Product getProductById(int productId) {
         return productDao.find(productId);
@@ -113,5 +138,25 @@ public class ProductService {
         shoppingCart = shoppingCartDao.find(userId);
         shoppingCart.increaseLineItem(productId);
         shoppingCartDao.addShoppingCart(userId, shoppingCart);
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public ProductCategoryDao getProductCategoryDao() {
+        return productCategoryDao;
+    }
+
+    public ShoppingCartDao getCartDao() {
+        return shoppingCartDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public OrderDao getOrderDao() {
+        return orderDao;
     }
 }

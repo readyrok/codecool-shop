@@ -1,8 +1,10 @@
 package com.codecool.shop.config;
 
+import com.codecool.shop.dao.DaoImplementation;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.database.DatabaseManager;
 import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
 import com.codecool.shop.dao.implementation.memory.SupplierDaoMem;
@@ -13,12 +15,22 @@ import com.codecool.shop.model.Supplier;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.sql.SQLException;
 
 @WebListener
 public class Initializer implements ServletContextListener {
+    private static DatabaseManager databaseManager;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+//        databaseManager = new DatabaseManager();
+//
+//        try {
+//            databaseManager.setup(DaoImplementation.DATABASE);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
@@ -49,5 +61,9 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Apple Watch Series 7", 399, "USD", "The Sport Band is made from a durable yet surprisingly soft high-performance fluoroelastomer with an innovative pin-and-tuck closure.", watch, apple));
         productDataStore.add(new Product("MacBook Air", 1249, "USD", "Apple M1 chip with 8 core CPU, 8 core GPU, and 16 core Neural Engine, 512GB SSD storage, Retina display with True Tone.", laptop, apple));
 
+    }
+
+    public static DatabaseManager getDatabaseManager() {
+        return databaseManager;
     }
 }

@@ -1,11 +1,10 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.config.Initializer;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.config.Util;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.ShoppingCartDao;
-import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.implementation.database.DatabaseManager;
 import com.codecool.shop.dao.implementation.memory.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.memory.ProductDaoMem;
 import com.codecool.shop.dao.implementation.memory.ShoppingCartDaoMem;
@@ -32,12 +31,26 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = req.getParameter("category");
         String supplier = req.getParameter("supplier");
+        DatabaseManager manager = Initializer.getDatabaseManager();
+        ProductService productService;
+        ProductDao productDataStore;
+        ProductCategoryDao productCategoryDataStore;
+        SupplierDao supplierDao;
+        ShoppingCartDao shoppingCartDao;
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDao = SupplierDaoMem.getInstance();
-        ShoppingCartDao shoppingCartDao = ShoppingCartDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore,productCategoryDataStore, shoppingCartDao);
+        if(manager == null) {
+            productDataStore = ProductDaoMem.getInstance();
+            productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+            supplierDao = SupplierDaoMem.getInstance();
+            shoppingCartDao = ShoppingCartDaoMem.getInstance();
+        } else {
+            productDataStore = manager.getProductDao();
+            productCategoryDataStore = manager.getProductCategoryDao();
+            supplierDao = manager.getSupplierDao();
+            shoppingCartDao = manager.getCartDao();
+        }
+
+        productService = new ProductService(productDataStore, productCategoryDataStore, shoppingCartDao);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -65,7 +78,7 @@ public class ProductController extends HttpServlet {
                 }
             }
         } else if(supplier != null){
-            context.setVariable("products", productService.getSupplierDao(supplier));
+            context.setVariable("products", productService.getSupplier(supplier));
             context.setVariable("currentSupplier", supplier);
         }else {
             context.setVariable("category", productDataStore.getAll());
